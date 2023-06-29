@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Diseases Classification</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#show').attr('src', e.target.result);
+                    };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function send_image(e){
+            e.preventDefault();
+        }
+    </script>
+
+    <style>
+        *{
+            margin : 0px;
+            padding: 0px;
+        }
+        body{
+            width: auto;
+            height: 100vh;
+            align-items: center;
+            background-color: rgb(21, 21, 21);
+        }
+
+        h1{
+            color: white;
+            font-family:'Courier New', Courier, monospace;
+            font-weight: 10;
+        }
+
+        .heading{
+            position: relative;
+            padding: 30px;
+            background-color: rgb(0, 0, 0);
+        }
+        
+        .container{
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .main-content{
+            position: relative;
+            padding-top: 5%;
+            margin: auto;
+            color: white;
+            text-align: center;
+            font-size :larger;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .main{
+            position: relative;
+            vertical-align: middle;
+            display:inline-block;
+            margin: 20px;
+        }
+
+        button{
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #img-show{
+            margin : auto;
+            width: auto;
+        }
+
+        #show{
+            width: 200px;
+            height: 200px;
+        }
+
+        .result-container{
+            margin-top: 1rem;
+            color: white;
+            justify-content: center;
+            display: flex;
+        }
+
+        p{
+            margin-bottom: 2rem;
+        }
+
+        td{
+            padding-right: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heading">
+            <h1><center>Skin Diseases Prediction</center></h1>
+        </div>
+        <div class="main-content">
+            <div class="main" id="img-show">
+                <img id="show">
+            </div>
+            
+            <div class="main">
+                <form action="{{url_for('predict')}}" method="post" enctype="multipart/form-data" id="todo-form" onsubmit="send_image()">
+                    <label for="">Select an image : </label>
+                    <input type="file" name="image" id="image"  onchange="readURL(this)" required><br><br>
+                    <label>Select the model from below : </label><br><br>
+                    <input type="radio" name="choice" value="cnn" id="cnn" checked>
+                    <label for="">CNN</label>
+                    <input type="radio" name="choice" value="svm" id="svm">
+                    <label for="">SVM</label>
+                    <input type="radio" name="choice" value="bayes" id="bayes">
+                    <label for="">Bayesian</label><br><br>
+                    <button type="submit">Predict</button>
+                </form>
+            </div>
+            
+        </div>
+        <div class="result-container">
+            <div class="result">
+                <p style="color:white">{{prediction_text}}</p>
+                <thead>{{table_heading}}</thead>
+                <table class="details">
+                    <tr>
+                        <td>{{d0}}</td>
+                        <td>{{p0}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{d1}}</td>
+                        <td>{{p1}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{d2}}</td>
+                        <td>{{p2}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{d3}}</td>
+                        <td>{{p3}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{d4}}</td>
+                        <td>{{p4}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{d5}}</td>
+                        <td>{{p5}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{d6}}</td>
+                        <td>{{p6}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Diseases Classification</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        *{
+            margin : 0px;
+            padding: 0px;
+        }
+        body{
+            width: auto;
+            height: 100vh;
+            align-items: center;
+        }
+
+        h1{
+            color: white;
+            font-family:'Courier New', Courier, monospace;
+            font-weight: 10;
+        }
+
+        .heading{
+            position: relative;
+            padding: 30px;
+            background-color: rgb(0, 0, 0);
+        }
+        
+        .container{
+            background-color: rgb(21, 21, 21);
+        }
+
+        .main-content{
+            padding-top: 5%;
+            margin: auto;
+            width: 500px;
+            color: white;
+            min-height: 635px;
+            position: relative;
+            font-size :larger;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        button{
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        h4{
+            margin-top: 20px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        img{
+            margin-top: 50px;
+            max-width: 300px;
+            max-height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heading">
+            <h1><center>Skin Diseases Prediction</center></h1>
+        </div>
+        <div class="main-content">
+            <form action="{{url_for('predict')}}" method="post" enctype="multipart/form-data">
+                <label for="">Select an image : </label>
+                <input type="file" name="image" id="image"  onchange="readURL(this)"><br><br>
+                <label>Select the model from below : </label><br><br>
+                <input type="radio" name="choice" value="cnn" id="cnn" checked>
+                <label for="">CNN</label>
+                <input type="radio" name="choice" value="svm" id="svm">
+                <label for="">SVM</label>
+                <input type="radio" name="choice" value="bayes" id="bayes">
+                <label for="">Bayesian</label><br><br>
+                <button type="submit">Predict</button>
+            </form>
+            <img id="show">
+            <h5 style="color:white">{{prediction_text}}</h5>
+        </div>
+        
+    </div>
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#show').attr('src', e.target.result);
+                    };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+    </script>
+</body>
+</html>
